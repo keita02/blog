@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+	S'inscrire
+{% endblock title %}
+
+{% block content %}
+	
+
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+
+<!-- ============================ COMPONENT REGISTER   ================================= -->
+	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+      <article class="card-body">
+		<header class="mb-4"><h4 class="card-title text-center">S'inscrire</h4></header>
+
+		<!-- GESTION DES ERREURS LORS DE L'INSCRIPTION -->
+
+		{% if form.errors %}
+			
+		
+		    {% if err.username %}
+		    <div id="message" class="container">
+		    <div  class="alert alert-danger text-center" role="alert">
+		      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+		        <p>Un utilisateur avec ce nom existe déjà.</p>	
+		    </div>
+		    </div>
+		    {% endif %}
+
+
+		    {% if form.password1 %}
+			    <div id="message" class="container">
+			    <div  class="alert alert-danger text-center" role="alert">
+			      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+			        <p>Mot de passe non robuste (plus de 8 caractères)</p>	
+			    </div>
+			    </div>
+		    {% endif %}
+
+		{% endif %}
+
+
+		<!-- FIN DE LA GESTION DES ERREURS -->
+
+
+		<form action="{% url 'register_user' %}" method="POST">
+			{% csrf_token %}
+
+				<div class="form-row">
+						<label>Nom d'utilisateur</label>
+						{{ form.username }}
+				</div> <!-- form-row end.// -->
+
+				<div class="form-row">
+					<label>Email</label>
+					{{ form.email }}
+				</div> <!-- form-group end.// -->
+
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Mot de passe</label>
+					    {{ form.password1 }}
+					</div> <!-- form-group end.// --> 
+					<div class="form-group col-md-6">
+						<label>Confirmer mot de passe</label>
+					    {{ form.password2 }}
+					</div> <!-- form-group end.// -->  
+				</div>
+			    <div class="form-group">
+			        <button type="submit" class="btn btn-primary btn-block"> S'inscrire  </button>
+			    </div> <!-- form-group// -->      
+			        
+			</form>
+		</article><!-- card-body.// -->
+    </div> <!-- card .// -->
+    <p class="text-center mt-4">Avez-vous déjà un compte? <a href="{% url 'login_user' %}">Se connecter</a></p>
+    <br><br>
+<!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+	
+
+{% endblock content %}

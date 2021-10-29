@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load  static %}
+
+{% block title %}
+	Contact
+{% endblock title %}
+
+
+{% block content %}
+
+
+<div class="container">
+	
+
+
+
+<!-- Contact Section-->
+<section id="contact" class="contact">
+  <div id="map"></div>
+  <div class="container text-center">
+    <div class="form-holder">
+      <header>
+        <h2>Contactez-nous</h2>
+
+      </header>
+      <form id="contact-form" method="POST" action="{% url 'contact' %}">
+      	{% csrf_token %}
+      	{{ form }}
+
+      <br><br>
+      	<button class="btn btn-primary" type="submit">Envoyez</button>
+      
+    </div>
+  </div>
+</section>
+
+</div>
+<!-- End Booking Section-->
+{% endblock content %}

@@ -1,0 +1,80 @@
+{% load static %}
+
+        <aside class="col-lg-4">
+          <!-- Widget [Search Bar Widget]-->
+          <div class="widget search">
+            <header>
+              <h3 class="h6">Rechercher un article</h3>
+            </header>
+            <form action="{% url 'search' %}" class="search-form" method="GET">
+              <div class="form-group">
+                <input type="text" name="q" placeholder="Que cherchez-vous?">
+                <button type="submit" class="submit"><i class="icon-search"></i></button>
+              </div>
+            </form>
+          </div>
+          <!-- Widget [Latest Posts Widget]        -->
+          <div class="widget latest-posts">
+            <header>
+              <h3 class="h6">Les plus recents</h3>
+            </header>
+            <div class="blog-posts">
+              
+
+              {% for recent in most_recent %}
+
+              <a href=" {{ recent.get_absolute_url }} ">
+
+      
+                <div class="item d-flex align-items-center">
+                  <div class="image"><img src=" {{ recent.thumbnail.url }} " alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>{{ recent.title|safe}}</strong>
+                    <div class="d-flex align-items-center">
+                      <div class="views"><i class="icon-eye"></i> {{ recent.view_count }} </div>
+                      <div class="comments"><i class="icon-comment"></i> {{ recent.comments.count}} </div>
+                    </div>
+                  </div>
+                </div>
+
+              </a>
+
+              {% endfor %}
+
+              </div>
+          </div>
+          <!-- Widget [Categories Widget]-->
+          <div class="widget categories">
+            <header>
+              <h3 class="h6">Categories</h3>
+            </header>
+
+            {% for cat in category_count %}
+              
+            <div class="item d-flex justify-content-between">
+              <a href="#"> {{ cat.category__title}} </a><span> {{ cat.category__title__count}} </span>
+            </div>
+
+            {% endfor %}
+    
+          </div>
+          
+
+           <!-- Widget [Tags Cloud Widget]-->
+          <div class="widget tags">       
+            <header>
+              <h3 class="h6">Tags</h3>
+            </header>
+            <ul class="list-inline">
+
+              {% for cat in category_count %}
+                
+
+              <li class="list-inline-item"><a href="#" class="tag">#{{ cat.category__title }}</a></li>
+
+
+              {% endfor %}
+            </ul>
+          </div>
+
+        </aside>
+

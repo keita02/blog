@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Accueil
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+
+    <!-- Hero Section-->
+
+{% for head in banniere %}
+  
+
+    <section style="background: url({{ head.banner_picture.url }}); background-size: cover; background-position: center center" class="hero" id="hero">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7">
+            <h1>{{ head.banner_text|safe }}</h1><a href="#" class="hero-link"></a>
+          </div>
+        </div><a href=".intro" class="continue link-scroll"><i class="fa fa-long-arrow-down"></i> Voir</a>
+      </div>
+    </section>
+
+
+    <!-- Intro Section-->
+    <section class="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2 class="h3 text-center">{{ head.title|safe }}</h2>
+            <p class="text-center">{{ head.content|safe }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- SECTION ORIGINALE DE LA PAGE D'ACCUEIL -->
+{% endfor %}
+
+    <section class="featured-posts no-padding-top">
+        <div class="container">
+
+        <!-- Post-->
+
+        {% for post in object_list %}
+          
+        <div class="row d-flex align-items-stretch mt-4">
+
+          {% if not forloop.first and not forloop.last %}
+
+          <div class="image col-lg-5 ">
+            <img src="{{ post.thumbnail.url }}" alt="...">
+          </div>
+
+          {% endif %}
+          
+
+          <div class="text col-lg-7">
+            <div class="text-inner d-flex align-items-center">
+              <div class="content">
+                <header class="post-header">
+
+                  <div class="category">
+                    {% for cat in post.category.all %}
+                      
+                    <a href="#">{{ cat }}</a>
+
+                    {% endfor %}
+                  </div>
+
+                  <a href="{{ post.get_absolute_url }}">
+                    <h2 class="h4">{{ post.title|safe|upper }}</h2>
+                  </a>
+
+                </header>
+                <p>{{ post.overview|safe|truncatechars:"70" }}</p>
+                <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                    <div class="avatar"><img src="{{ post.author.profile_pic.url }}" alt="..." class="img-fluid"></div>
+                    <div class="title"><span>{{ post.author }}</span></div></a>
+                  <div class="date"><i class="icon-clock"></i>Il ya {{ post.timestamp|timesince}} </div>
+                  <div class="comments"><i class="icon-comment"></i>{{ post.comment_count }}</div>
+                </footer>
+              </div>
+            </div>
+          </div>
+
+          {% if forloop.first or forloop.last %}
+
+          <div class="image col-lg-5 ">
+
+            <img src="{{ post.thumbnail.url }}" alt="...">
+            
+          </div>
+
+          {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+        </div>
+    </section>
+
+      
+    <section style="background: url({% static 'img/divider-bg.jpg' %}); background-size: cover; background-position: center bottom" class="divider">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+           <a href="#" class="hero-link">Voir plus</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Latest Posts -->
+    <section class="latest-posts"> 
+      <div class="container">
+
+        {% for lastested in   last_tendance %}
+          
+        <header> 
+          <h2 class="text-center">{{ lastested.title|safe }}</h2>
+          <p class="text-big text-center">{{ lastested.content|safe }}</p>
+        </header>
+
+        {% endfor %}
+        <div class="row">
+
+          {% for latest in latest %}
+            
+          <div class="post col-md-4">
+            <div class="post-thumbnail"><a href="{{ latest.get_absolute_url }}"><img src="{{ latest.thumbnail.url }}" alt="..." class="img-fluid"></a></div>
+            <div class="post-details">
+              <div class="post-meta d-flex justify-content-between">
+
+                {% for cat in latest.category.all %}
+                  
+                <div class="category"><a href="#">{{ cat }}</a></div>
+
+                {% endfor %}
+
+              </div><a href="{{ latest.get_absolute_url }}">
+                <h3 class="h4">{{ latest.title|safe }}</h3></a>
+              <p class="text-muted">{{ latest.overview|safe|truncatechars:"100" }}</p>
+            </div>
+          </div>
+
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+
+
+ <!-- Newsletter Section-->
+    <section class="newsletter no-padding-top">    
+      <div class="container">
+        <div class="row">
+          <!-- MESSAGE  -->
+
+<!--           {% if messages %}
+
+          <div class="col-md-6">
+            
+            {% for message in messages %}
+                <div id="message" class="container">
+                  <div class="alert alert-{{ message.tags }} text-center" alert-dismissable role="alert">
+                      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+
+                      <strong>
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        {% else %}
+                            {{mesaage.tags|title}}
+                        {% endif %}
+                      </strong>
+                      {{message}}
+                  </div>
+                </div>
+            {% endfor %}
+
+          </div>
+
+          {% endif %} -->
+
+          <!-- FIN MESSAGE -->
+          <div class="col-md-6">
+            <h2>S'inscrire à la Newsletter</h2>
+            <p class="text-big">Pour rester informé, souscrivez à la newsletter</p>
+          </div>
+
+
+          <div class="col-md-8">
+            <div class="form-holder">
+              <form action="." method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="email" name="email" id="email" placeholder="Votre Adresse Email">
+                  <button type="submit" class="submit">S'inscrire</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Gallery Section-->
+    <section class="gallery no-padding">    
+      <div class="row">
+
+        {% for galerie in galerie_image %}
+          
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+          <div class="item"><a href="{{ galerie.big_size_pic.url }}" data-fancybox="gallery" class="image"><img src="{{ galerie.small_size_pic.url }}" alt="..." class="img-fluid">
+              <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div></a></div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </section>
+
+
+{% endblock content %}
+
+
+

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+  R&eacutes;sultat de la recherche
+{% endblock title %}
+{% load static %}
+
+
+{% block content %}
+  
+
+{% if queryset %}
+    <div class="container text-center mt-4">
+        <h2 class="text-center">R&eacute;sultats de votre recherche</h2>
+    </div>
+
+
+        <div class="container">
+          <div class="row">
+            <!-- Latest Posts -->
+            <main class="posts-listing col-lg-8"> 
+              <div class="container">
+                <div class="row">
+                  <!-- post -->
+
+                  {% for post in queryset %}
+                    
+
+                  <div class="post col-xl-6">
+                    <div class="post-thumbnail">
+                      <a href=" {{ post.get_absolute_url }} "><img src=" {{ post.thumbnail.url }} " alt="..." class="img-fluid" style="width:100%; height:auto;">
+                      </a>
+                    </div>
+                    <div class="post-details">
+                      <div class="post-meta d-flex justify-content-between">
+                        <div class="category">
+                          {% for cat in post.categories.all  %}
+                            <a href="#"> {{ cat }} </a>
+                          {% endfor %}
+                        </div>
+                      </div><a href=" {{ post.get_absolute_url }} ">
+                        <h3 class="h4"> {{ post.title|lower|safe }} </h3></a>
+                      <p class="text-muted"> {{ post.overview|slice:":200"|safe}} </p>
+                      <footer class="post-footer d-flex align-items-center"><a href="#" class="author d-flex align-items-center flex-wrap">
+                          <div class="avatar"><img src=" {{ post.author.profile_pic.url }} " alt="..." class="img-fluid"></div>
+                          <div class="title"><span> {{ post.author.user.last_name }} </span></div></a>
+                        <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince}}  </div>
+                        <div class="comments meta-last"><i class="icon-comment"></i> {{ post.comment_count }} </div>
+                      </footer>
+                    </div>
+                  </div>
+
+                {% endfor %}
+
+                </div>
+
+              </div>
+            </main>
+
+
+
+
+          </div>
+        </div>
+
+
+{% else %}
+    
+    <div class="container text-center mt-4">
+        <h2 class="text-center mt-4 mx-auto mb-4">Aucun resultat ne correspond a votre recherche</h2>
+    </div>
+
+{% endif %}
+
+  
+{% endblock content %}
+
+
+
+
+
+
+
+

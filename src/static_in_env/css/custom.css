@@ -1,0 +1,22 @@
+/* your styles go here */
+body{
+	background-color: #ccc;
+}
+
+
+p.social a {display: inline-block; margin: 0 10px 10px 0; color: #fff;  width: 3em; height: 3em; border-radius: 1.5em; line-height: 3em; font-size: 1.2em; vertical-align: bottom; text-align: center; border: solid 1px #ccc; color: #ccc; transition: all 0.2s ease-out;}
+p.social a:hover, p.social a:focus  {color: darkblue; border-color: darkblue; text-decoration: none;}
+p.social a i {vertical-align: middle;}
+p.social a i:before {line-height: 3em;}
+
+
+
+p.social-colour a {color: #fff;}
+p.social-colour a:hover, p.social-colour a:focus {color: #fff;}
+p.social-colour a.facebook, p.social-colour a.facebook:hover, p.social-colour a.facebook:focus {background-color: #4460ae; border-color: #4460ae;}
+p.social-colour a.gplus, p.social-colour a.gplus:hover, p.social-colour a.gplus:focus {background-color: #c21f25; border-color: #c21f25;}
+p.social-colour a.twitter, p.social-colour a.twitter:hover, p.social-colour a.twitter:focus {background-color: #3cf; border-color: #3cf;}
+p.social-colour a.instagram, p.social-colour a.instagram:hover, p.social-colour a.instagram:focus {background-color: #cd4378; border-color: #cd4378;}
+p.social-colour a.buffer, p.social-colour a.buffer:hover, p.social-colour a.buffer:focus {background-color: #000; border-color: #000;}
+p.social-colour a.pocket, p.social-colour a.pocket:hover, p.social-colour a.pocket:focus {background-color: #f04056; border-color: #f04056;}
+p.social-colour a.linkedin, p.social-colour a.linkedin:hover, p.social-colour a.linkedin:focus {background-color: #0373b4; border-color: #0373b4;}
